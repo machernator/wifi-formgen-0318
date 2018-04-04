@@ -31,7 +31,10 @@ class Input {
             // TODO: id muss wirklich eindeutig sein
             $this->id = $this->name;
         }
-        $this->id = $fieldConf['id'];
+        
+        if (array_key_exists('id', $fieldConf)){
+            $this->id = $fieldConf['id'];
+        }
 
         // value optional
         if (array_key_exists('value', $fieldConf)) {

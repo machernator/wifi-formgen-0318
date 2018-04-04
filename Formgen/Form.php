@@ -109,6 +109,12 @@ class Form {
                 case 'file':
                     $this->fields[$name] = new File($name, $fieldConf);
                     break;
+                case 'submit':
+                    $this->fields[$name] = new Submit($name, $fieldConf);
+                    break;
+                case 'reset':
+                    $this->fields[$name] = new Reset($name, $fieldConf);
+                    break;
                 default:
                     $this->fields[$name] = new Input($name, $fieldConf);
             }

@@ -84,6 +84,24 @@ $conf = [
                 'title' => 'Ihre Newsletter',
                 'placeholder' => 'Newsletter'
             ]
-        ]
+        ],
+        'senden' => [
+            'type' => 'submit',
+            'id' => 'feldSubmit',
+            'value' => 'Senden',
+            'label' => '',
+            'tagAttributes' => [
+                'class' => 'pure-button pure-button-primary'
+            ]
+        ],
+        'reset' => [
+            'type' => 'reset',
+            'value' => 'Zurück setzen',
+            'label' => '',
+            'tagAttributes' => [
+                'class' => 'pure-button',
+                'style' => 'margin-left: 1.5em'
+            ]
+        ],
     ]
 ];
