@@ -15,6 +15,8 @@
 <body>
     <?php 
         require_once 'init.php'; 
+        /* $form = new Form($formConfig);
+        $form->render(); */
     ?>
 
     <form action="" method="post" class="pure-form pure-form-stacked">
@@ -30,7 +32,7 @@
        
         $bl = new \Formgen\Select('bundeslaender', $conf['bundeslaender']);
         echo $bl->render();
-       
+        
 
     ?>
     </form> 
