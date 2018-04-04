@@ -15,13 +15,13 @@
 <body>
     <?php 
         require_once 'init.php'; 
-        /* $form = new Form($formConfig);
-        $form->render(); */
+        $form = new \Formgen\Form($conf);
+        echo $form->render();
     ?>
 
-    <form action="" method="post" class="pure-form pure-form-stacked">
+    <!-- <form action="" method="post" class="pure-form pure-form-stacked"> -->
     <?php
-        $anrede = new \Formgen\Radio('anrede', $conf['anrede']);
+        /* $anrede = new \Formgen\Radio('anrede', $conf['anrede']);
         echo $anrede->render();
         
         $vn = new \Formgen\Checkbox('vorname', $conf['vorname']);
@@ -31,10 +31,10 @@
         echo $nn->render();
        
         $bl = new \Formgen\Select('bundeslaender', $conf['bundeslaender']);
-        echo $bl->render();
+        echo $bl->render(); */
         
 
     ?>
-    </form> 
+    <!-- </form>  -->
 </body>
 </html>
