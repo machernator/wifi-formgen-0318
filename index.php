@@ -14,15 +14,14 @@
 </head>
 <body>
     <?php 
-        require_once 'formgen/Input.php'; 
-        require_once 'formgen/Textarea.php'; 
-        require_once 'formgen/Checkbox.php'; 
-        require_once 'formgen/Select.php'; 
-        require_once 'form-conf.php'; 
+        require_once 'init.php'; 
     ?>
 
     <form action="" method="post" class="pure-form pure-form-stacked">
     <?php
+        $anrede = new Radio('anrede', $conf['anrede']);
+        echo $anrede->render();
+        
         $vn = new Checkbox('vorname', $conf['vorname']);
         echo $vn->render();
         

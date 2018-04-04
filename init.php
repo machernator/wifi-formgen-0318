@@ -1,0 +1,14 @@
+<?php
+function form_loader($className) {
+    require 'formgen/' . $className . '.php';
+}
+
+/* 
+    Wir registrieren die Funktio form_loader. 
+    Diese wird aufgerufen, wenn ein neues Objekt erstellt wird 
+    (z.B. new Input) und php noch keine Klasse dafür importiert hat.
+    Es können beliebig viele Autoloader Funktionen registriert werden.
+*/
+spl_autoload_register('form_loader');
+
+require_once 'form-conf.php';

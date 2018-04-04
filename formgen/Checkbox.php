@@ -42,7 +42,7 @@ class Checkbox extends Input {
         $out .= $this->renderTagAttributes();
         
         // Tag schließen
-        $out .= '> ' .
+        $out .= '>&nbsp;' .
         $this->label . 
         '</label>';
 

@@ -1,5 +1,20 @@
 <?php
 $conf = [
+    'anrede' => [
+        'type' => 'radio',
+        'label' => 'Anrede',
+        'id' => 'anrede',
+        'value' => 'Herr',
+        'values' => [
+            'Frau' => 'Frau',
+            'Herr' => 'Herr'
+        ],
+        'tagAttributes' => [
+            'class' => 'form-field',
+        ],
+        'validationRules' =>'required',
+        'filterRules' => 'trim|sanitize_string'
+    ],
     'vorname' => [
         'type' => 'text',
         'label' => 'Vorname',
