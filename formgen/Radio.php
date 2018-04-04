@@ -1,4 +1,5 @@
 <?php
+namespace Formgen;
 
 class Radio extends Input {
     /* 

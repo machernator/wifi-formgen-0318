@@ -1,4 +1,5 @@
 <?php
+namespace Formgen;
 
 class Checkbox extends Input {
 

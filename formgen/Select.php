@@ -1,4 +1,5 @@
 <?php
+namespace Formgen;
 
 class Select extends Input {
     protected $options = [];

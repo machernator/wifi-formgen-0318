@@ -1,6 +1,13 @@
 <?php
+define ('PROJECT_ROOT', __DIR__ . '/');
+
 function form_loader($className) {
-    require 'formgen/' . $className . '.php';
+    // Unix/Linux
+    $fileName = PROJECT_ROOT . '/' .  str_replace('\\', '/', $className) . ".php";
+
+    if(file_exists($fileName)) {
+        require($fileName);
+    }
 }
 
 /* 

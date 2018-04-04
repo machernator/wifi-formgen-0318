@@ -19,16 +19,16 @@
 
     <form action="" method="post" class="pure-form pure-form-stacked">
     <?php
-        $anrede = new Radio('anrede', $conf['anrede']);
+        $anrede = new \Formgen\Radio('anrede', $conf['anrede']);
         echo $anrede->render();
         
-        $vn = new Checkbox('vorname', $conf['vorname']);
+        $vn = new \Formgen\Checkbox('vorname', $conf['vorname']);
         echo $vn->render();
         
-        $nn = new Input('nachname', $conf['nachname']);
+        $nn = new \Formgen\Input('nachname', $conf['nachname']);
         echo $nn->render();
        
-        $bl = new Select('bundeslaender', $conf['bundeslaender']);
+        $bl = new \Formgen\Select('bundeslaender', $conf['bundeslaender']);
         echo $bl->render();
        
 
