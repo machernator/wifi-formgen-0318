@@ -32,11 +32,15 @@ class Form {
         if (array_key_exists('id', $myConf)) {
             $this->id = $myConf['id'];
         }
-
+        
+        // Fields erstellen
         if (array_key_exists('fields', $formConfig) &&
             is_array($formConfig['fields']) &&
             !empty($formConfig['fields'])) {
             $this->createFields($formConfig['fields']);
+        }
+        else {
+            die('Formconfiguation Error: no fields');
         }
 
         // tagattributes optional
@@ -132,6 +136,51 @@ class Form {
             $out .= " $attr=\"$val\"";
         }
         return $out;
+    }
+
+    /**
+     * Prüfen, ob das Formular gesendet wurde
+     *
+     * @return boolean
+     */
+    public function isSent() {
+        if ( $this->method === 'get') {
+            return !empty($_GET);
+        }
+        return !empty($_POST);
+    }
+
+    /**
+     * Prüft, ob die gesendeten Daten valide sind
+     *
+     * @return boolean
+     */
+    public function isValid() {
+        $gump = new \GUMP\GUMP();
+
+        $validationRules = $this->createValidationRules();
+        $gump->validation_rules($validationRules);
+        $validation_data = $gump->run($_POST);
+
+        if ($validation_data === false) {
+            // Fehlermeldungen ermitteln und in Felder schreiben
+
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Für GUMP die Valdidierungsregeln erzeugen
+     *
+     * @return void
+     */
+    protected function createValidationRules() {
+        $rules = [];
+        foreach($this->fields as $name => $field) {echo $name;
+            $rules[$name] = $field->getValidationRules();
+        }
+        return $rules;
     }
 
 }

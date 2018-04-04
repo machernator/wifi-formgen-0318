@@ -8,6 +8,8 @@ class Input {
     protected $value = '';
     protected $label = '';
     protected $tagAttributes = [];
+    protected $validationRules = [];
+    protected $filterRules = [];
 
     /**
      * Konstruktor
@@ -31,7 +33,7 @@ class Input {
             // TODO: id muss wirklich eindeutig sein
             $this->id = $this->name;
         }
-        
+
         if (array_key_exists('id', $fieldConf)){
             $this->id = $fieldConf['id'];
         }
@@ -50,6 +52,16 @@ class Input {
         // tagattributes optional
         if (array_key_exists('tagAttributes', $fieldConf) && is_array($fieldConf['tagAttributes'])) {
             $this->tagAttributes = $fieldConf['tagAttributes']; 
+        }
+
+        // validationRules
+        if (array_key_exists('validationRules', $fieldConf)) {
+            $this->validationRules = $fieldConf['validationRules']; 
+        }
+        
+        // filterRules
+        if (array_key_exists('filterRules', $fieldConf)) {
+            $this->filterRules = $fieldConf['filterRules']; 
         }
     }
 
@@ -109,5 +121,23 @@ class Input {
             $out .= " $attr=\"$val\"";
         }
         return $out;
+    }
+
+    /**
+     * Validationrules zur Verfügung stellen
+     *
+     * @return void
+     */
+    public function getValidationRules() {
+        return $this->validationRules;
+    }
+    
+    /**
+     * Filterrules zur Verfügung stellen
+     *
+     * @return void
+     */
+    public function getFilterRules() {
+        return $this->filterRules;
     }
 }

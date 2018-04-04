@@ -53,7 +53,9 @@ $conf = [
                 'noe' => 'Niederösterreich',
                 'ooe' => 'Oberösterreich',
                 'bgld' => 'Burgenland'
-            ]
+            ],
+            'validationRules' =>'required',
+            'filterRules' => 'trim|sanitize_string'
         ],
         'nachname' => [
             'type' => 'text',
@@ -64,15 +66,18 @@ $conf = [
                 'class' => 'form-field',
                 'title' => 'Ihr Nachname',
                 'placeholder' => 'Nachname'
-            ]
-        ]
-        ,
+            ],
+            'validationRules' =>'required',
+            'filterRules' => 'trim|sanitize_string'
+        ],
         'email' => [
             'type' => 'email',
             'id' => 'feldEmail',
             'value' => '',
             'label' => 'E-Mail',
-            'tagAttributes' => []
+            'tagAttributes' => [],
+            'validationRules' =>'required|valid_email',
+            'filterRules' => 'trim|sanitize_string'
         ],
         'newsletter' => [
             'type' => 'checkbox',
@@ -83,7 +88,9 @@ $conf = [
                 'class' => 'form-field',
                 'title' => 'Ihre Newsletter',
                 'placeholder' => 'Newsletter'
-            ]
+            ],
+            'validationRules' =>'contains,1',
+            'filterRules' => 'trim|sanitize_string'
         ],
         'senden' => [
             'type' => 'submit',

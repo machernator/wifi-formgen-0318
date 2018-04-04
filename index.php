@@ -16,25 +16,20 @@
     <?php 
         require_once 'init.php'; 
         $form = new \Formgen\Form($conf);
-        echo $form->render();
+        /* echo '<pre>';
+        var_export($form);
+        echo '</pre>'; */
+        
+        if ($form->isSent()) {
+            echo 'yes';
+            $isValid = $form->isValid();
+           // echo $form->render();
+            // Validieren
+        } 
+        else {
+            echo $form->render();
+        }
     ?>
 
-    <!-- <form action="" method="post" class="pure-form pure-form-stacked"> -->
-    <?php
-        /* $anrede = new \Formgen\Radio('anrede', $conf['anrede']);
-        echo $anrede->render();
-        
-        $vn = new \Formgen\Checkbox('vorname', $conf['vorname']);
-        echo $vn->render();
-        
-        $nn = new \Formgen\Input('nachname', $conf['nachname']);
-        echo $nn->render();
-       
-        $bl = new \Formgen\Select('bundeslaender', $conf['bundeslaender']);
-        echo $bl->render(); */
-        
-
-    ?>
-    <!-- </form>  -->
 </body>
 </html>
