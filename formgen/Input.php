@@ -180,4 +180,13 @@ class Input {
     public function setValue($value) {
         $this->value = $value;
     }
+
+    /**
+     * Type ermitteln
+     *
+     * @return string
+     */
+    public function getType() : string {
+        return $this->type;
+    }
 }

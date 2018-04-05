@@ -62,6 +62,11 @@ class Radio extends Input {
         return $out;
     }
 
+    /**
+     * Override renderLabel
+     *
+     * @return string
+     */
     public function renderLabel() : string {
         return '';
     }

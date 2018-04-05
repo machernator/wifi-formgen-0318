@@ -174,8 +174,11 @@ class Form {
         $data = [];
 
         $validationRules = $this->createValidationRules();
-
+        $filterRules = $this->createFilterRules();
+        
         $gump->validation_rules($validationRules);
+        $gump->filter_rules($filterRules);
+       
         if ($this->method === 'get'){
             $data = $_GET;
         }
@@ -191,17 +194,22 @@ class Form {
             $errors = $gump->get_errors_array();
 
             // Schleife über Validierungen, wenn Fehler in $errors, den Fehler an Feld übergeben
-            foreach ($validationRules as $name => $rule) {
-                $field = $this->fields[$name];
+            foreach ($this->fields as $name => $field) {
+                //$field = $this->fields[$name];
+                // Wurde ein Fehler für das aktuelle Feld erzeugt?
                 if (array_key_exists($name, $errors)) {
                     $field->setError($errors[$name]);
                 }
 
+                // value auf gesendeten Wert setzen
                 if (array_key_exists($name, $data)) {
                     $field->setValue($data[$name]);
                 }
+                // Checkboxen 
+                elseif ($field->getType() === 'checkbox' || $field->getType() === 'radio') {
+                    $field->setValue(false);
+                }
             }
-
             return false;
         }
         return $validatedData;
@@ -216,6 +224,14 @@ class Form {
         $rules = [];
         foreach($this->fields as $name => $field) {
             $rules[$name] = $field->getValidationRules();
+        }
+        return $rules;
+    }
+
+    protected function createFilterRules() {
+        $rules = [];
+        foreach($this->fields as $name => $field) {
+            $rules[$name] = $field->getFilterRules();
         }
         return $rules;
     }

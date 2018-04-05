@@ -10,23 +10,26 @@
     body {
         padding: 2em;
     }
+    .error {
+        display: inline-block;
+        background-color: #900;
+        color: white;
+        padding: 0.25em;
+    }
     </style>
 </head>
 <body>
     <?php 
         require_once 'init.php'; 
         $form = new \Formgen\Form($conf);
-        /* echo '<pre>';
-        var_export($form);
-        echo '</pre>'; */
         
         if ($form->isSent()) {
-            $isValid = $form->isValid();
-            if (!$isValid) {
+            $validData = $form->isValid();
+            if (!$validData) {
                 echo $form->render();
             }
             else {
-                echo 'Jipie!';
+                var_export($validData);
             }
         } 
         else {
