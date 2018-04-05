@@ -9,6 +9,7 @@ $conf = [
         'action' => '',
         'method' => 'post',
         'id' => 'contactForm',
+        'errorClass' => 'error',
         'tagAttributes' => [
             'class' => 'pure-form pure-form-stacked'
         ]
@@ -46,7 +47,7 @@ $conf = [
             'type' => 'select',
             'label' => 'Bundesländer',
             'id' => 'feldBundeslaender',
-            'value' => ['bgld', 'noe'], // kann auch ein array sein: ['bgld', 'w'],
+            'value' => ['bgld', 'noe'], // kann auch ein string sein
             //'tagAttributes' => ['multiple' => ''],
             'options' => [ // key => option value, value = option Text
                 'w' => 'Wien',

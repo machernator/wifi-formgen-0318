@@ -7,9 +7,11 @@ class Input {
     protected $id = '';
     protected $value = '';
     protected $label = '';
+    protected $errorClass = 'field-error';
+    protected $error = '';
     protected $tagAttributes = [];
-    protected $validationRules = [];
-    protected $filterRules = [];
+    protected $validationRules = '';
+    protected $filterRules = '';
 
     /**
      * Konstruktor
@@ -48,6 +50,11 @@ class Input {
             $this->label = $this->name;
         }
         $this->label = $fieldConf['label'];
+
+        // errorClass optional
+        if (array_key_exists('errorClass', $fieldConf)) {
+            $this->errorClass = $fieldConf['errorClass'];
+        }
        
         // tagattributes optional
         if (array_key_exists('tagAttributes', $fieldConf) && is_array($fieldConf['tagAttributes'])) {
@@ -76,6 +83,7 @@ class Input {
         // Input rendern
         $out .= $this->renderField();
         // Error rendern
+        $out .= $this->renderError();
 
         return $out;
     }
@@ -111,6 +119,18 @@ class Input {
     }
 
     /**
+     * Ausgabe der Fehlermeldung. 
+     *
+     * @return void
+     */
+    public function renderError() {
+        if ($this->error !== '') {
+            return '<span class="' . $this->errorClass . '">' . $this->error . '</span>';
+        }
+        return '';
+    }
+
+    /**
      * Rendering der optionalen Attribute des input tags
      *
      * @return string
@@ -139,5 +159,25 @@ class Input {
      */
     public function getFilterRules() {
         return $this->filterRules;
+    }
+    
+    /**
+     * Fehlermeldung setzen
+     *
+     * @param string $error
+     * @return void
+     */
+    public function setError(string $error) {
+        $this->error = $error;
+    }
+
+    /**
+     * Value setzen
+     *
+     * @param mixed $value
+     * @return void
+     */
+    public function setValue($value) {
+        $this->value = $value;
     }
 }

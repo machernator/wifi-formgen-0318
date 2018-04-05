@@ -32,6 +32,19 @@ class Form {
         if (array_key_exists('id', $myConf)) {
             $this->id = $myConf['id'];
         }
+
+        /*
+            Wenn errorClass gesetzt wurde, kann, falls nicht vorhanden, diese 
+            Klasse jedem Feld zugeordnet werden. Hat das Feld schon eine
+            errorClass, bleibt diese erhalten.
+         */
+        if (array_key_exists('errorClass', $myConf)) {
+            foreach ($formConfig['fields'] as $name => $field) {
+                if (!array_key_exists('errorClass', $field)) {
+                    $formConfig['fields'][$name]['errorClass'] = $myConf['errorClass'];
+                }
+            }
+        }
         
         // Fields erstellen
         if (array_key_exists('fields', $formConfig) &&
@@ -153,21 +166,45 @@ class Form {
     /**
      * Prüft, ob die gesendeten Daten valide sind
      *
-     * @return boolean
+     * @return mixed    array | boolean false
      */
     public function isValid() {
         $gump = new \GUMP\GUMP();
+        $validatedData = [];
+        $data = [];
 
         $validationRules = $this->createValidationRules();
-        $gump->validation_rules($validationRules);
-        $validation_data = $gump->run($_POST);
 
-        if ($validation_data === false) {
+        $gump->validation_rules($validationRules);
+        if ($this->method === 'get'){
+            $data = $_GET;
+        }
+        else {
+            $data = $_POST;
+        }
+
+        $validatedData = $gump->run($data); 
+
+        // Gump gibt false zurück, falls ein Fehler auftrat
+        if ($validatedData === false) {
             // Fehlermeldungen ermitteln und in Felder schreiben
+            $errors = $gump->get_errors_array();
+
+            // Schleife über Validierungen, wenn Fehler in $errors, den Fehler an Feld übergeben
+            foreach ($validationRules as $name => $rule) {
+                $field = $this->fields[$name];
+                if (array_key_exists($name, $errors)) {
+                    $field->setError($errors[$name]);
+                }
+
+                if (array_key_exists($name, $data)) {
+                    $field->setValue($data[$name]);
+                }
+            }
 
             return false;
         }
-        return true;
+        return $validatedData;
     }
 
     /**
@@ -177,7 +214,7 @@ class Form {
      */
     protected function createValidationRules() {
         $rules = [];
-        foreach($this->fields as $name => $field) {echo $name;
+        foreach($this->fields as $name => $field) {
             $rules[$name] = $field->getValidationRules();
         }
         return $rules;

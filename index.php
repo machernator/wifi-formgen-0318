@@ -21,10 +21,13 @@
         echo '</pre>'; */
         
         if ($form->isSent()) {
-            echo 'yes';
             $isValid = $form->isValid();
-           // echo $form->render();
-            // Validieren
+            if (!$isValid) {
+                echo $form->render();
+            }
+            else {
+                echo 'Jipie!';
+            }
         } 
         else {
             echo $form->render();

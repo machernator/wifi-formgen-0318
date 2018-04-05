@@ -63,7 +63,7 @@ class Select extends Input {
             $out .= '<option value="' . $val . '"';
             
             // selected?
-            if( in_array($val, $this->value) ) {
+            if( (is_array($this->value) && in_array($val, $this->value)) || $val === $this->value ) {
                 $out .= ' selected';
             }
 
